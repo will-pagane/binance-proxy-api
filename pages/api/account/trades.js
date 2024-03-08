@@ -1,22 +1,32 @@
 import generateSignature from '../utils/generateSignature';
 
 
-async function getUserData(request, response) {
-  const signature = generateSignature();
+async function getUserData(req, res) {
+  const apiKey = req.headers['api-key'];
+  if (!apiKey) return res.status(400).json({ error: 'API Key não fornecida no cabeçalho.' });
+
+  const signature = generateSignature(req.query);
   const url = `https://api1.binance.com/api/v3/account?${signature}`;
 
   const options = {
     'method': 'GET',
     'headers': {
-      'X-MBX-APIKEY': 'M3Tj7rpeZRbaL4JuVEXTFE1Ul4g3953byYIUsu78eiJMSKAfqPaSe4Erq2hKBD5q',
+      'X-MBX-APIKEY': apiKey,
       'Accept': 'application/json',
     }
   };
 
-  const request = await fetch(url, options);
-  const data = await request.json();
+  try {
+    const request = await fetch(url, options);
+    const data = await request.json();
+    res.json(data);
 
-  return data;
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: 'Erro ao buscar dados na API.' });
+  }
+
 }
+
 
 export default getUserData;

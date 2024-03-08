@@ -1,0 +1,1 @@
+import generateSignature from '../utils/generateSignature';
