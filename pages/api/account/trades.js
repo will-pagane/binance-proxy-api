@@ -2,7 +2,7 @@ import generateSignature from '../utils/generateSignature';
 
 
 async function getUserData(req, res) {
-  const apiKey = req.headers['api-key'];
+  const apiKey = req.headers['x-api-key'];
   if (!apiKey) return res.status(400).json({ error: 'API Key não fornecida no cabeçalho.' });
 
   const signature = generateSignature(req.query);
