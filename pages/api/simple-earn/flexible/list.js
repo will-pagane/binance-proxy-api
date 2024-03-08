@@ -1,1 +1,1 @@
-import generateSignature from '../utils/generateSignature';
+import generateSignature from '../../utils/generateSignature';
