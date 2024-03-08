@@ -1,7 +1,7 @@
 import generateSignature from '../utils/generateSignature';
 
 
-async function getUserData(req, res) {
+async function getSpotAccount(req, res) {
   const apiKey = req.headers['x-api-key'];
   if (!apiKey) return res.status(400).json({ error: 'API Key não fornecida no cabeçalho.' });
 
@@ -29,4 +29,4 @@ async function getUserData(req, res) {
 }
 
 
-export default getUserData;
+export default getSpotAccount;
